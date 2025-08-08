@@ -1,10 +1,13 @@
 🧠 **The Lifelong Learning Co-Pilot**
+
 A personalized, multi-agent system designed to guide individuals through a continuous journey of skill acquisition and career development. This project directly supports SDG 4.4 (Relevant skills for decent work) and SDG 4.3 (Equal access to technical/vocational and higher education) by democratizing access to tailored educational pathways.
 
-🎯 Agent's Core Goal
+🎯** Agent's Core Goal**
+
 To autonomously create, manage, and adapt a personalized lifelong learning path for a user, aligning their skills with current and future job market demands to ensure long-term employability.
 
-🚀 Key Features & Agentic Tasks
+🚀 **Key Features & Agentic Tasks**
+
 The Lifelong Learning Co-Pilot performs a series of intelligent tasks to provide a comprehensive and dynamic learning plan:
 
 Dynamic Skill Profiling: The agent initiates a conversation to understand the user's current skills, educational background, career goals, and learning preferences.
@@ -17,8 +20,9 @@ Resource Aggregation: The agent connects to various educational platforms via AP
 
 Progress Tracking & Adaptation: The agent monitors user progress and dynamically adjusts the learning path. If a user struggles, it can suggest alternative resources. If the job market shifts, it can update the path with new, in-demand skills.
 
-🤖 The Agentic Process (Powered by CrewAI)
-This project leverages the CrewAI framework, where each agent has a specific expertise, to execute a seamless workflow.
+🤖  **The Agentic Process (Powered by CrewAI, LangChain & LangGraph)**
+
+This project leverages a hybrid approach using CrewAI for its intuitive, role-based agent orchestration, with the underlying power of LangChain and LangGraph to build more complex and stateful agentic workflows. Each agent has a specific expertise, executing a seamless workflow:
 
 🧑‍💼 Profiler Agent (Career Counselor): This agent's primary role is to interact with the user to build a comprehensive profile of their skills, goals, and preferences.
 
@@ -28,12 +32,20 @@ This project leverages the CrewAI framework, where each agent has a specific exp
 
 🧑‍💻 Manager Agent (Chief Strategist): The Manager Agent oversees the entire process, synthesizes the outputs from the other agents, and presents the final, actionable learning plan to the user.
 
-🛠️ Tech Stack & Tools
+🛠️ **Tech Stack & Tools**
+
 Agent Framework: CrewAI , LangChain , LangGraph
 
 Core LLM: Gemini Pro
 
 Deployment: Render, GitHub
+
+🌐** Deployment**
+
+The Lifelong Learning Co-Pilot is deployed on Render, leveraging a continuous deployment pipeline. Any changes pushed to the main branch of the GitHub repository are automatically built and deployed, ensuring the live version is always up-to-date.
+
+**Live Demo**
+You can interact with the live version of the project here: https://lifelong-learning-ai-agent.onrender.com
 
 💻 Getting Started
 To get a copy of this project up and running on your local machine for development and testing, follow these steps.
@@ -60,10 +72,12 @@ Run the main script to start the agentic process:
 
 python app.py
 
-📄 License
+**📄 License**
+
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-🙏 Acknowledgements
+**🙏 Acknowledgements**
+
 The CrewAI team for their excellent agentic framework.
 
 Google for the powerful Gemini Pro LLM.
