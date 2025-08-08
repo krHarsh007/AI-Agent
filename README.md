@@ -1,4 +1,4 @@
-🧠 The Lifelong Learning Co-Pilot
+🧠 **The Lifelong Learning Co-Pilot**
 A personalized, multi-agent system designed to guide individuals through a continuous journey of skill acquisition and career development. This project directly supports SDG 4.4 (Relevant skills for decent work) and SDG 4.3 (Equal access to technical/vocational and higher education) by democratizing access to tailored educational pathways.
 
 🎯 Agent's Core Goal
