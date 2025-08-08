@@ -2,6 +2,16 @@
 
 A personalized, multi-agent system that guides individuals through a continuous journey of skill acquisition and career development, supporting SDG 4.4 and 4.3.
 
+**🚀Project Screenshot:**
+
+<img width="1895" height="906" alt="Screenshot 2025-08-08 143942" src="https://github.com/user-attachments/assets/f5bc1069-a0a0-4588-b745-6c9af53180dd" />
+<img width="1065" height="590" alt="Screenshot 2025-08-08 144221" src="https://github.com/user-attachments/assets/ba183ee1-b348-48eb-98c5-0234eb4d719d" />
+<img width="1072" height="903" alt="Screenshot 2025-08-08 144244" src="https://github.com/user-attachments/assets/916ffe2d-e858-40f5-bcaf-f46c3185da67" />
+
+
+
+
+
 
 **🎯 Agent's Core Goal**
 
