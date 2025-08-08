@@ -1,0 +1,212 @@
+/* --- Google Font Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* --- Keyframe Animations --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- General Body & Background Styling --- */
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+    background-color: #0c0a1f;
+    background-image: linear-gradient(135deg,rgb(29, 169, 234), #3946db 0%, #380f6b 100%);
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #e5e5f7;   
+}
+
+
+/* --- Main Container with Glassmorphism Effect --- */
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 40px;
+    box-shadow: 0 8px 32px 0 rgba(19, 15, 63, 0.37);
+    animation: fadeIn 1s ease-out;
+    
+}
+
+
+/* --- Typography --- */
+/* --- Typography --- */
+h1 {
+    font-size: 3em;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    /* Define a fallback color for browsers that don't support text gradients */
+    color: #ce93d8; 
+    
+    /* The gradient background */
+    background: linear-gradient(90deg, #92d6f6, #e1a7ec);
+    
+    /* Vendor prefix for older Chrome/Safari */
+    -webkit-background-clip: text;
+    
+    /* The STANDARD property for modern browser compatibility */
+    background-clip: text;
+    
+    /* Makes the text color transparent to show the background gradient */
+    /* This is often paired with -webkit-text-fill-color for WebKit */
+    -webkit-text-fill-color: transparent;
+    color: transparent; 
+
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #f4f4f4;
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 40px;
+    font-weight: 300;
+}
+
+/* --- Form Styling --- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+label {
+    font-weight: 600;
+    color: #d4c4f1;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+
+input[type="text"], select {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(179, 157, 219, 0.5);
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    color-scheme: dark;
+}
+
+input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+input[type="text"]:focus, select:focus {
+    outline: none;
+    border-color: #81d4fa;
+    box-shadow: 0 0 15px rgba(129, 212, 250, 0.5);
+}
+
+/* --- Button Styling --- */
+.btn {
+    background-image: linear-gradient(90deg, #ffbd4a, #d86a10);
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Loading Animation --- */
+#loading {
+    display: none;
+    text-align: center;
+    padding: 40px;
+    animation: fadeIn 0.5s;
+}
+
+.loader {
+    border: 5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    border-top: 5px solid #81d4fa;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+/* --- Result Card --- */
+.result-card {
+    margin-top: 40px;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.2);
+    border-left: 5px solid #81d4fa;
+    border-radius: 10px;
+    animation: fadeIn 1s ease-out;
+}
+
+.result-card h2, .result-card h3 {
+    color: #ce93d8;
+}
+
+.result-card a {
+    color: #81d4fa;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.result-card a:hover {
+    text-decoration: underline;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .container {
+        padding: 25px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+}
+
+/* --- Add this to the end of static/styles.css --- */
+.btn-secondary {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    background: transparent;
+    border: 2px solid #5e35b1;
+}
+
+.btn-secondary:hover {
+    background: #5e35b1;
+    border-color: #5e35b1;
+}

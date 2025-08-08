@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI: Lifelong Learning Co-Pilot</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container" id="main-container">
+        <h1>Lifelong Learning AI Agent</h1>
+        <p class="subtitle">Your AI-powered guide to a futuristic career path.</p>
+        
+        <form id="co-pilot-form" method="POST"> <div class="form-group">
+                <label for="current_skills">Your Current Skills</label>
+                <input type="text" id="current_skills" name="current_skills" placeholder="e.g., Python, basic SQL, communication" required>
+            </div>
+            <div class="form-group">
+                <label for="career_goal">Your Desired Career Role</label>
+                <input type="text" id="career_goal" name="career_goal" placeholder="e.g., AI Engineer, Full-Stack Developer" required>
+            </div>
+            <div class="form-group">
+                <label for="learning_style">Your Preferred Learning Style</label>
+                <select id="learning_style" name="learning_style" color-scheme="dark">
+                    <option value="project-based">Project-Based (hands-on)</option>
+                    <option value="text-based">Text-Based (articles, books)</option>
+                    <option value="visual">Visual (videos, tutorials)</option>
+                    <option value="balanced">A balanced mix</option>
+                </select>
+            </div>
+            <button type="submit" class="btn">GENERATE MY PATH</button>
+        </form>
+
+        <div id="loading" style="display: none;"> <div class="loader"></div>
+            <p id="loading-status">Getting ready to build your plan...</p>
+        </div>
+        
+        <div id="result-container"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('co-pilot-form');
+        if (form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                // Clear previous results and show loader
+                const resultContainer = document.getElementById('result-container');
+                resultContainer.innerHTML = '';
+                document.getElementById('co-pilot-form').style.display = 'none';
+                document.getElementById('loading').style.display = 'block';
+                const statusP = document.getElementById('loading-status');
+
+                const formData = new FormData(form);
+
+                fetch('/generate', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder();
+                    
+                    function push() {
+                        reader.read().then(({ done, value }) => {
+                            if (done) return;
+                            
+                            const chunk = decoder.decode(value, {stream: true});
+                            const lines = chunk.split('\n\n');
+                            
+                            lines.forEach(line => {
+                                if (line.startsWith("data: ")) {
+                                    // Handle status updates
+                                    const data = line.substring(6);
+                                    statusP.textContent = data;
+                                } else if (line.startsWith("result: ")) {
+                                    // Handle the final result
+                                    const jsonData = line.substring(8);
+                                    const htmlResult = JSON.parse(jsonData);
+                                    
+                                    // Hide loading and display result
+                                    document.getElementById('loading').style.display = 'none';
+                                    const resultCard = document.createElement('div');
+                                    resultCard.className = 'result-card';
+                                    // We add a 'start over' button dynamically
+                                    resultCard.innerHTML = htmlResult + '<a href="/" class="btn btn-secondary">Create Another Plan</a>';
+                                    resultContainer.appendChild(resultCard);
+                                }
+                            });
+                            push();
+                        });
+                    }
+                    push();
+                });
+            });
+        }
+    </script>
+</body>
+</html>
