@@ -10,7 +10,7 @@ A personalized, multi-agent system that guides individuals through a continuous 
 
 
 
-
+**Project Link:**  https://lifelong-learning-ai-agent.onrender.com/
 
 
 **🎯 Agent's Core Goal**
@@ -57,7 +57,7 @@ Deployment: Render, GitHub
 
 The Lifelong Learning Co-Pilot is deployed on Render with a continuous deployment pipeline. Changes pushed to the main branch are automatically built and deployed.
 
-Live Demo
+
 You can interact with the live version of the project here: https://lifelong-learning-ai-agent.onrender.com
 
 
