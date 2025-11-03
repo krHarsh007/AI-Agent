@@ -5,7 +5,6 @@ import json
 from flask import Flask, render_template, request, redirect, url_for, session, Response
 from dotenv import load_dotenv
 from functools import lru_cache
-# --- (Other imports remain the same) ---
 from langgraph.graph import StateGraph, END
 from langchain_google_genai import ChatGoogleGenerativeAI
 from typing import TypedDict, Dict, Optional
@@ -16,16 +15,15 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-# --- (AgentState class and the three agent node functions remain the same) ---
+# --- AgentState class and the three agent node functions ---
 class AgentState(TypedDict):
     user_profile: Dict[str, str]
     market_analysis: Optional[str]
     learning_plan: Optional[str]
     final_output: Optional[str]
 
-# Agent node functions (no changes to their internal logic)
+# Agent node functions
 def market_analyst_node(state: AgentState) -> AgentState:
-    # ... (no changes)
     print("--- 📈 Running Market Analyst Agent ---")
     profile = state['user_profile']
     prompt = (
@@ -34,14 +32,13 @@ def market_analyst_node(state: AgentState) -> AgentState:
         "Analyze real-time labor market data from sources like LinkedIn and skill databases. "
         "Identify key skills to bridge the gap. Respond only with a comma-separated list of crucial skills."
     )
-    llm = ChatGoogleGenerativeAI(model='models/gemini-1.5-flash-latest', temperature=0.5)
+    llm = ChatGoogleGenerativeAI(model='models/gemini-1.5-flash', temperature=0.5)
     response = llm.invoke(prompt)
     state['market_analysis'] = response.content.strip()
     return state
 
 
 def curriculum_designer_node(state: AgentState) -> AgentState:
-    # ... (no changes)
     print("--- 📚 Running Curriculum Designer Agent ---")
     profile = state['user_profile']
     analysis = state['market_analysis']
@@ -56,14 +53,13 @@ def curriculum_designer_node(state: AgentState) -> AgentState:
         "4. Tailor the resource types to the user's learning style.\n"
         "5. Present the output in clear, structured Markdown."
     )
-    llm = ChatGoogleGenerativeAI(model='models/gemini-1.5-flash-latest', temperature=0.5)
+    llm = ChatGoogleGenerativeAI(model='models/gemini-1.5-flash', temperature=0.5)
     response = llm.invoke(prompt)
     state['learning_plan'] = response.content.strip()
     return state
 
 
 def manager_node(state: AgentState) -> AgentState:
-    # ... (no changes)
     print("--- 🎯 Running Chief Strategist Agent ---")
     plan = state['learning_plan']
     profile = state['user_profile']
@@ -74,11 +70,11 @@ def manager_node(state: AgentState) -> AgentState:
         "\n\n--- Raw Learning Plan ---\n"
         f"{plan}"
     )
-    llm = ChatGoogleGenerativeAI(model='models/gemini-1.5-flash-latest', temperature=0.5)
+    llm = ChatGoogleGenerativeAI(model='models/gemini-1.5-flash', temperature=0.5)
     response = llm.invoke(prompt)
     state['final_output'] = response.content.strip()
     return state
-# --- MODIFIED WORKFLOW FUNCTION ---
+# --- WORKFLOW FUNCTION ---
 @lru_cache(maxsize=128)
 def run_agentic_workflow(user_profile_json):
     user_profile = json.loads(user_profile_json)
@@ -103,9 +99,6 @@ def run_agentic_workflow(user_profile_json):
         final_output = manager_state.get('final_output', 'Sorry, an error occurred.')
         html_output = markdown2.markdown(final_output)
         
-        # --- MODIFIED ---
-        # Instead of saving to session, we yield the result with a special prefix.
-        # We wrap it in JSON to handle multi-line strings easily.
         yield f"result: {json.dumps(html_output)}\n\n"
 
     except Exception as e:
@@ -113,7 +106,7 @@ def run_agentic_workflow(user_profile_json):
         error_message = f"<h2>An Error Occurred</h2><p>Sorry, we couldn't generate your plan. The following error occurred: {e}</p>"
         yield f"result: {json.dumps(error_message)}\n\n"
 
-# --- MODIFIED & SIMPLIFIED FLASK ROUTES ---
+# --- FLASK ROUTES ---
 
 @app.route('/')
 def home():
@@ -130,8 +123,6 @@ def generate():
     }
     user_profile_json = json.dumps(user_profile, sort_keys=True)
     return Response(run_agentic_workflow(user_profile_json), mimetype='text/event-stream')
-
-# The /result route is no longer needed.
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',debug=True)
