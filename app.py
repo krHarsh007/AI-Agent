@@ -3,14 +3,15 @@ import getpass
 import time
 import json
 from flask import Flask, render_template, request, redirect, url_for, session, Response
-from dotenv import load_dotenv
+# from dotenv import load_dotenv  <- This line is no longer needed
 from functools import lru_cache
-from langgraph.graph import StateGraph, END
+# This import is not used in this version, but is harmless
+from langgraph.graph import StateGraph, END 
 from langchain_google_genai import ChatGoogleGenerativeAI
 from typing import TypedDict, Dict, Optional
 import markdown2
 
-load_dotenv()
+# load_dotenv()  <- This line is no longer needed
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -32,7 +33,12 @@ def market_analyst_node(state: AgentState) -> AgentState:
         "Analyze real-time labor market data from sources like LinkedIn and skill databases. "
         "Identify key skills to bridge the gap. Respond only with a comma-separated list of crucial skills."
     )
-    llm = ChatGoogleGenerativeAI(model='models/gemini-1.5-flash', temperature=0.5)
+    # ---
+    # --- THIS IS THE FIX ---
+    # Switched to the stable 'gemini-pro' model to resolve the 404 error
+    llm = ChatGoogleGenerativeAI(model='gemini-flash-latest', temperature=0.5)
+    # ---
+    # ---
     response = llm.invoke(prompt)
     state['market_analysis'] = response.content.strip()
     return state
@@ -53,7 +59,11 @@ def curriculum_designer_node(state: AgentState) -> AgentState:
         "4. Tailor the resource types to the user's learning style.\n"
         "5. Present the output in clear, structured Markdown."
     )
-    llm = ChatGoogleGenerativeAI(model='models/gemini-1.5-flash', temperature=0.5)
+    # ---
+    # --- THIS IS THE FIX ---
+    llm = ChatGoogleGenerativeAI(model='gemini-flash-latest', temperature=0.5)
+    # ---
+    # ---
     response = llm.invoke(prompt)
     state['learning_plan'] = response.content.strip()
     return state
@@ -70,7 +80,11 @@ def manager_node(state: AgentState) -> AgentState:
         "\n\n--- Raw Learning Plan ---\n"
         f"{plan}"
     )
-    llm = ChatGoogleGenerativeAI(model='models/gemini-1.5-flash', temperature=0.5)
+    # ---
+    # --- THIS IS THE FIX ---
+    llm = ChatGoogleGenerativeAI(model='gemini-flash-latest', temperature=0.5)
+    # ---
+    # ---
     response = llm.invoke(prompt)
     state['final_output'] = response.content.strip()
     return state
@@ -125,4 +139,6 @@ def generate():
     return Response(run_agentic_workflow(user_profile_json), mimetype='text/event-stream')
 
 if __name__ == '__main__':
+    # Setting host='0.0.0.0' makes it accessible on your network
     app.run(host='0.0.0.0',debug=True)
+
