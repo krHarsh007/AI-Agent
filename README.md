@@ -10,7 +10,7 @@ A personalized, multi-agent system that guides individuals through a continuous 
 
 
 
-**Project Link:**  https://lifelong-learning-ai-agent.onrender.com/
+**Project Link:**  https://lifelong-learning-ai-agent.onrender.com
 
 
 **🎯 Agent's Core Goal**
