@@ -1,7 +1,0 @@
-Flask
-langgraph
-langchain
-langchain-google-genai
-google-generativeai
-markdown2
-dotenv
